@@ -1,0 +1,20 @@
+
+###> wordpress/ignore folders###
+/wp-admin/
+/wp-includes/
+#/wp-content/plugins/
+###> wordpress/ignore folders###
+
+###> wordpress/cache ###
+/wp-content/cache/
+/wp-content/advanced-cache.php
+/wp-content/wp-cache-config.php
+###> wordpress/cache ###
+
+###> wordpress/ignore filess###
+.htaccess
+###> wordpress/ignore filess###
+
+### custom folders
+/a_documentacion/
+### custom folders
