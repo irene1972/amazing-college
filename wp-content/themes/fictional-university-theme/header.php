@@ -19,7 +19,8 @@
               // ));
             ?>
             <ul>
-              <li><a href="<?= site_url('/about-us'); ?>">About Us</a></li>
+              <!-- Nota: wp_get_post_parent_id(0) te da el ID de la parent page de la página actual. Es equivalente a wp_get_post_parent_id(get_the_ID()) -->
+              <li <?php if( is_page('about-us') || ( wp_get_post_parent_id(0) == 10 ) ) echo 'class="current-menu-item"'; ?>><a href="<?= site_url('/about-us'); ?>">About Us</a></li>
               <li><a href="#">Programs</a></li>
               <li><a href="#">Events</a></li>
               <li><a href="#">Campuses</a></li>
