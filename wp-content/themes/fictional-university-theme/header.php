@@ -1,4 +1,3 @@
-<!-- <h1>Greetings from header.php</h1> -->
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
   <head>
@@ -7,7 +6,6 @@
     <?php wp_head(); ?>
   </head>
   <body <?php body_class(); ?>>
-    <!-- <h1>Fictional University</h1> -->
     <header class="site-header">
       <div class="container">
         <h1 class="school-logo-text float-left"><a href="<?= site_url(); ?>"><strong>Fictional</strong> University</a></h1>
@@ -16,17 +14,17 @@
         <div class="site-header__menu group">
           <nav class="main-navigation">
             <?php
-              wp_nav_menu(array(
-                'theme_location' => 'headerMenuLocation'
-              ));
+              // wp_nav_menu(array(
+              //   'theme_location' => 'headerMenuLocation'
+              // ));
             ?>
-          <!-- <ul>
+            <ul>
               <li><a href="<?= site_url('/about-us'); ?>">About Us</a></li>
               <li><a href="#">Programs</a></li>
               <li><a href="#">Events</a></li>
               <li><a href="#">Campuses</a></li>
               <li><a href="#">Blog</a></li>
-            </ul> -->
+            </ul>
 
           </nav>
           <div class="site-header__util">
