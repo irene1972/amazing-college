@@ -44,8 +44,6 @@ while( have_posts() ){
     <div class="page-links">
       <h2 class="page-links__title"><a href="<?= get_permalink( $theIdParent ) ?>"><?= get_the_title( $theIdParent ) ?></a></h2>
       <ul class="min-list">
-        <!-- <li class="current_page_item"><a href="#">Our History</a></li>
-        <li><a href="#">Our Goals</a></li> -->
         <?php 
 
           if( $theIdParent ){
