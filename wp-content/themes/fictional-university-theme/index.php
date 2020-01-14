@@ -16,20 +16,23 @@
   ?>
   <div class="post-item">
 
-    <h2><a class="headline headline--medium headline--post-title" href="<?= the_permalink() ?>"><?= the_title() ?></a></h2>
+    <h2><a class="headline headline--medium headline--post-title" href="<?php the_permalink() ?>"><?php the_title() ?></a></h2>
     
     <div class="metabox">
-      <p>Posted by <?= the_author_posts_link() ?> on <?= the_time('n/j/Y') ?> in <?= get_the_category_list(', ') ?></p>
+      <p>Posted by <?php the_author_posts_link() ?> on <?php the_time('n/j/Y') ?> in <?= get_the_category_list(', ') ?></p>
     </div>
     
     <div class="generic-content">
       <!-- < ?php the_content(); ?> Nota: la función the_excerpt() muetra solo un trozo del content -->
-      <?= the_excerpt(); ?>
-      <p><a class="btn btn--blue" href="<?= the_permalink() ?>">Continue reading &raquo;</a></p>
+      <?php the_excerpt(); ?>
+      <p><a class="btn btn--blue" href="<?php the_permalink() ?>">Continue reading &raquo;</a></p>
     </div>
   </div>
   <?php
     }
+    
+    echo paginate_links();
+
   ?>
 </div>
 
