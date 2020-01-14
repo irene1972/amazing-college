@@ -2038,7 +2038,7 @@
     text-decoration: none;
   }
   
-  .headline--post-title a:hover {
+  a.headline--post-title:hover {
     text-decoration: underline;
   }
   
