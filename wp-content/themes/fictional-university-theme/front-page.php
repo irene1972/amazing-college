@@ -20,13 +20,28 @@ get_header();
         <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
         <?php 
 
+        $today = date('Ymd');
+
         $homePageEvents = new WP_Query(array(
-                'posts_per_page' => 2,
+                'posts_per_page' => -1,  //-1 -> all posts
                 'post_type' => 'event',
+                'meta_key' => 'event_date', // Necessary always you use the param 'meta_value' or 'meta_value_num' !!!
+                'orderby' => 'meta_value_num',  // Is better to use 'meta_value_num' instead of 'meta_value' when the field is a numbre (in this case a date)
+                //'orderby' => 'meta_value',  // By default -> 'post_date' (DESC). Other values are: 'title', 'rand'
+                'order' => 'ASC',  //By default -> DESC
+                'meta_query' => array(  //meta_query allows filtering items using multiple filters (each in an array)
+                  array(
+                    'key' => 'event_date',
+                    'compare' => '>=',
+                    'value' => $today,
+                    'type' => 'numeric' //Indicamos el tipo de datos que va a comparar
+                  )
+                ) 
               ));
 
               while( $homePageEvents->have_posts() ){
                 $homePageEvents->the_post();
+
                 $eventDate=new DateTime( get_field('event_date')  );
                 $monthEvent = $eventDate->format('M');
                 $dayEvent = $eventDate->format('d');
