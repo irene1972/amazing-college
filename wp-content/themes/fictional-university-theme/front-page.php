@@ -23,7 +23,7 @@ get_header();
         $today = date('Ymd');
 
         $homePageEvents = new WP_Query(array(
-                'posts_per_page' => -1,  //-1 -> all posts
+                'posts_per_page' => 2,  //-1 -> all posts
                 'post_type' => 'event',
                 'meta_key' => 'event_date', // Necessary always you use the param 'meta_value' or 'meta_value_num' !!!
                 'orderby' => 'meta_value_num',  // Is better to use 'meta_value_num' instead of 'meta_value' when the field is a numbre (in this case a date)

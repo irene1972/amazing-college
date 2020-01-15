@@ -11,7 +11,10 @@ function university_files(){
 
 }
 
+// Add scripts and css para nuestro tema
 add_action('wp_enqueue_scripts', 'university_files');
+
+
 
 function university_features(){
   //register_nav_menu('headerMenuLocation', 'Header Menu Location');
@@ -20,9 +23,13 @@ function university_features(){
   add_theme_support('title-tag');
 }
 
+// Customización de menús, customización de títulos en nuesto tema...
 add_action('after_setup_theme', 'university_features');
 
+
+//----------------------------------------------------------------
 //Todo este código pasa a la carpeta mu-plugins
+//----------------------------------------------
 // function university_post_types(){
 //   register_post_type('event', array(
 //     'has_archive' => true,
@@ -38,6 +45,37 @@ add_action('after_setup_theme', 'university_features');
 //   ));
 // }
 
+// Creación de un nuevo tipo de post (Eventos) customizado
 //add_action( 'init', 'university_post_types' );
+//----------------------------------------------------------------
+
+
+function university_adjust_queries( $query ){
+  //Nota: cuidado!! modificar esta query sin restricciones podría modificar todas las queries que ejecuta wordpress. Ejemplo...
+  //$query->set( 'posts_per_page', 1 );
+
+  //Por ello se incluye el siguiente if...
+
+  if( !is_admin() && is_post_type_archive('event') && $query->is_main_query() ){
+
+    $today = date('Ymd');
+
+    //$query->set( 'posts_per_page', 2 );
+    $query->set( 'meta_key', 'event_date' );
+    $query->set( 'orderby', 'meta_value_num' );
+    $query->set( 'order', 'ASC' );
+    $query->set( 'meta_query', array(
+      'key' => 'event_date',
+      'compare' => '>=',
+      'value' => $today,
+      'type' => 'numeric'
+    ) );
+
+  }
+
+}
+
+// Ligeras modificaciones de las queries que wordpress nos aporta de forma predeterminada (por defecto)
+add_action( 'pre_get_posts', 'university_adjust_queries' );
 
 ?>
