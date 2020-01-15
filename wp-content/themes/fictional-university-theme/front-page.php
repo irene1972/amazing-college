@@ -19,7 +19,6 @@ get_header();
       <div class="full-width-split__inner">
         <h2 class="headline headline--small-plus t-center">Upcoming Events</h2>
         <?php 
-        //************************************************* */
 
         $homePageEvents = new WP_Query(array(
                 'posts_per_page' => 2,
@@ -37,17 +36,16 @@ get_header();
                 </a>
                 <div class="event-summary__content">
                   <h5 class="event-summary__title headline headline--tiny"><a href="<?= the_permalink() ?>"><?= the_title() ?></a></h5>
-                  <p><?= wp_trim_words( get_the_content(), 18 ) ?><a href="<?= the_permalink() ?>" class="nu gray">Learn more</a></p>
+                  <p><?= ( has_excerpt() ) ? get_the_excerpt() : ( wp_trim_words( get_the_content(), 18 ) ) ?><a href="<?= the_permalink() ?>" class="nu gray">Learn more</a></p>
                 </div>
               </div>
             <?php
               }
         wp_reset_postdata();
 
-        //******************************************************* */
       ?>
         
-        <p class="t-center no-margin"><a href="#" class="btn btn--blue">View All Events</a></p>
+        <p class="t-center no-margin"><a href="<?= get_post_type_archive_link('event') ?>" class="btn btn--blue">View All Events</a></p>
 
       </div>
     </div>
@@ -71,7 +69,7 @@ get_header();
           </a>
           <div class="event-summary__content">
             <h5 class="event-summary__title headline headline--tiny"><a href="<?= the_permalink() ?>"><?= the_title() ?></a></h5>
-            <p><?= wp_trim_words( get_the_content(), 18 ) ?><a href="<?= the_permalink() ?>" class="nu gray">Read more</a></p>
+            <p><?= ( has_excerpt() ) ? get_the_excerpt() : ( wp_trim_words( get_the_content(), 18 ) ) ?><a href="<?= the_permalink() ?>" class="nu gray">Read more</a></p>
           </div>
         </div>
 
