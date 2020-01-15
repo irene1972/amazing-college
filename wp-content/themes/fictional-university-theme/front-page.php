@@ -26,13 +26,17 @@ get_header();
               ));
 
               while( $homePageEvents->have_posts() ){
-                $homePageEvents->the_post(); 
+                $homePageEvents->the_post();
+                $eventDate=new DateTime( get_field('event_date')  );
+                $monthEvent = $eventDate->format('M');
+                $dayEvent = $eventDate->format('d');
+
             ?>
               
               <div class="event-summary">
                 <a class="event-summary__date t-center" href="<?= the_permalink() ?>">
-                  <span class="event-summary__month">Mar</span>
-                  <span class="event-summary__day">25</span>  
+                  <span class="event-summary__month"><?= $monthEvent ?></span>
+                  <span class="event-summary__day"><?= $dayEvent ?></span>  
                 </a>
                 <div class="event-summary__content">
                   <h5 class="event-summary__title headline headline--tiny"><a href="<?= the_permalink() ?>"><?= the_title() ?></a></h5>

@@ -2,7 +2,7 @@
 
 function university_post_types(){
   register_post_type('event', array(
-    'supports' => array( 'title', 'editor', 'excerpt'),
+    'supports' => array( 'title', 'editor', 'excerpt'), //Si usamos el plugin ACF no necesitamos añadir en esta línea 'custom-fields'
     'rewrite' => array( 'slug' => 'events' ),
     'has_archive' => true,
     'public' => true,

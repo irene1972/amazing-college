@@ -2,6 +2,7 @@
 ###> wordpress/ignore folders###
 /wp-admin/
 /wp-includes/
+/wp-content/plugins/
 /z_recursos/
 #/wp-content/plugins/
 ###> wordpress/ignore folders###
