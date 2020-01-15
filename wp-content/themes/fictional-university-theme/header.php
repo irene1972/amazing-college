@@ -22,7 +22,7 @@
               <!-- Nota: wp_get_post_parent_id(0) te da el ID de la parent page de la página actual. Es equivalente a wp_get_post_parent_id(get_the_ID()) -->
               <li <?= ( is_page('about-us') || ( wp_get_post_parent_id(0) == 10 ) ) ? 'class="current-menu-item"' : '' ?>><a href="<?= site_url('/about-us') ?>">About Us</a></li>
               <li><a href="#">Programs</a></li>
-              <li <?=  ( get_post_type() == 'event' ) ? 'class="current-menu-item"' : '' ?>><a href="<?= get_post_type_archive_link('event') ?>">Events</a></li>
+              <li <?=  ( get_post_type() == 'event' || is_page('past-events') ) ? 'class="current-menu-item"' : '' ?>><a href="<?= get_post_type_archive_link('event') ?>">Events</a></li>
               <li><a href="#">Campuses</a></li>
               <li <?php if( get_post_type() == 'post' ) echo 'class="current-menu-item"'; ?>><a href="<?= site_url('/blog') ?>">Blog</a></li>
             </ul>
