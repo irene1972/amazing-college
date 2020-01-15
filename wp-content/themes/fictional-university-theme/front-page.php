@@ -42,7 +42,7 @@ get_header();
               while( $homePageEvents->have_posts() ){
                 $homePageEvents->the_post();
 
-                $eventDate=new DateTime( get_field('event_date')  );
+                $eventDate = new DateTime( get_field('event_date')  );
                 $monthEvent = $eventDate->format('M');
                 $dayEvent = $eventDate->format('d');
 
