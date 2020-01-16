@@ -22,8 +22,15 @@ function university_features(){
   //register_nav_menu('footerLocationTwo', 'Footer Location Two');
   add_theme_support('title-tag');
   add_theme_support('post-thumbnails'); //-> activamos las miniaturas -img- del tablero derecho en el editor de nuestro tema de wordpress
-  add_image_size( 'professorLandscape', 400, 260, true ); //-> primer parámetro es un nickname, anchura en px, altura px y el true es para que recorte (crop) desde el centro (es decir recorta los bordes para que no se deforme la imagen)
-  add_image_size( 'professorPortrait', 480, 650, true );  //->  IMPORTANTE: wp no crea retroactivamente imagenes. Para ellos necesitaríamos un plugin (p.e. Regenerate Thumbnails)
+  add_image_size( 'professorLandscape', 400, 260, true ); //-> primer parámetro es: 
+                                                          //    - un nickname, 
+                                                          //    - anchura en px, 
+                                                          //    - altura px 
+                                                          //    - el último param (true) es para que recorte (crop) desde el centro (es decir recorta los bordes para que no se deforme la imagen). 
+                                                          //  Nota: si queremos recortar las imágenes a demanda desde el administrador del wordpress, podemos usar un plugin como p.e. Manual Image Crop
+                                                          //   El parámetro crop puede ser una array si queremos el recorte personalizado y no desde el centro.
+  add_image_size( 'professorPortrait', 480, 650, true );  //->  IMPORTANTE: wp no crea retroactivamente imagenes... 
+                                                          //    ...para ello necesitaríamos un plugin (p.e. Regenerate Thumbnails)
 }
 
 // Customización de menús, customización de títulos en nuesto tema...

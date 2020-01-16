@@ -56,7 +56,7 @@ while( have_posts() ){
           ?>
             <li class="professor-card__list-item">
               <a class="professor-card" href="<?= the_permalink() ?>">
-                <img class="professor-card__image"  src="<?= the_post_thumbnail_url() ?>" alt="">
+                <img class="professor-card__image"  src="<?= the_post_thumbnail_url('professorLandscape') ?>" alt="">
                 <span class="professor-card__name"><?= the_title() ?></span>
               </a>
             </li>
