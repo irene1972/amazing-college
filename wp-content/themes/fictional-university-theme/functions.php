@@ -1,5 +1,37 @@
 <?php
 
+function pageBanner( $args = NULL ){
+  
+  $name_field_subtitle = 'page_banner_subtitle';
+  $name_field_image_background = 'pageBanner';
+
+  $title = ( $args['title'] ) ? $args['title'] : get_the_title();
+  $subtitle = ( $args['subtitle'] ) ? $args['subtitle'] : get_field($name_field_subtitle);  
+   
+  if( $args['url_banner'] ){
+    $url_banner = $args['url_banner'];
+  }else{
+    if( get_field('page_banner_background') ){
+      $url_banner = get_field('page_banner_background')['sizes'][$name_field_image_background];
+    }else{
+      $url_banner = get_theme_file_uri('/images/ocean.jpg');
+    }
+  }
+
+
+  ?>
+    <div class="page-banner">
+      <div class="page-banner__bg-image" style="background-image: url(<?php echo $url_banner;  ?>);"></div>
+      <div class="page-banner__content container container--narrow">
+        <h1 class="page-banner__title"><?php echo $title; ?></h1>
+        <div class="page-banner__intro">
+          <p><?php echo $subtitle; ?></p>
+        </div>
+      </div>  
+    </div>
+  <?php
+}
+
 function university_files(){
   /* El primer parámetro es un alias, el segundo la ruta, el tercero dice si tiene dependencias o no el script, el cuarto... */
   /* ... la versión (no importa p.e. '1.0') o si queremos que no se cachee ponemos la función de php microtime(), el quinto pregunta si queremos cargar este archivo justo antes de la etiqueta de cierre del cuerpo SÍ o NO (en nuestro caso sí que queremos) */
