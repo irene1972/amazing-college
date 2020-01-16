@@ -31,7 +31,9 @@ function university_features(){
                                                           //   El parámetro crop puede ser una array si queremos el recorte personalizado y no desde el centro.
   add_image_size( 'professorPortrait', 480, 650, true );  //->  IMPORTANTE: wp no crea retroactivamente imagenes... 
                                                           //    ...para ello necesitaríamos un plugin (p.e. Regenerate Thumbnails)
-}
+  add_image_size( 'pageBanner', 1500, 350, true );
+
+                                                        }
 
 // Customización de menús, customización de títulos en nuesto tema...
 add_action('after_setup_theme', 'university_features');
