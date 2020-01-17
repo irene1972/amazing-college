@@ -23,43 +23,28 @@ get_header();
         $today = date('Ymd');
 
         $homePageEvents = new WP_Query(array(
-                'posts_per_page' => 2,  //-1 -> all posts
-                'post_type' => 'event',
-                'meta_key' => 'event_date', // Necessary always you use the param 'meta_value' or 'meta_value_num' !!!
-                'orderby' => 'meta_value_num',  // Is better to use 'meta_value_num' instead of 'meta_value' when the field is a numbre (in this case a date)
-                //'orderby' => 'meta_value',  // By default -> 'post_date' (DESC). Other values are: 'title', 'rand'
-                'order' => 'ASC',  //By default -> DESC
-                'meta_query' => array(  //meta_query allows filtering items using multiple filters (each in an array)
-                  array(
-                    'key' => 'event_date',
-                    'compare' => '>=',
-                    'value' => $today,
-                    'type' => 'numeric' //Indicamos el tipo de datos que va a comparar
-                  )
-                ) 
-              ));
+          'posts_per_page' => 2,  //-1 -> all posts
+          'post_type' => 'event',
+          'meta_key' => 'event_date', // Necessary always you use the param 'meta_value' or 'meta_value_num' !!!
+          'orderby' => 'meta_value_num',  // Is better to use 'meta_value_num' instead of 'meta_value' when the field is a numbre (in this case a date)
+          //'orderby' => 'meta_value',  // By default -> 'post_date' (DESC). Other values are: 'title', 'rand'
+          'order' => 'ASC',  //By default -> DESC
+          'meta_query' => array(  //meta_query allows filtering items using multiple filters (each in an array)
+            array(
+              'key' => 'event_date',
+              'compare' => '>=',
+              'value' => $today,
+              'type' => 'numeric' //Indicamos el tipo de datos que va a comparar
+            )
+          ) 
+        ));
 
-              while( $homePageEvents->have_posts() ){
-                $homePageEvents->the_post();
+        while( $homePageEvents->have_posts() ){
+          $homePageEvents->the_post();
+          
+          get_template_part( 'template-parts/content', 'event');
 
-                $eventDate = new DateTime( get_field('event_date')  );
-                $monthEvent = $eventDate->format('M');
-                $dayEvent = $eventDate->format('d');
-
-            ?>
-              
-              <div class="event-summary">
-                <a class="event-summary__date t-center" href="<?= the_permalink() ?>">
-                  <span class="event-summary__month"><?= $monthEvent ?></span>
-                  <span class="event-summary__day"><?= $dayEvent ?></span>  
-                </a>
-                <div class="event-summary__content">
-                  <h5 class="event-summary__title headline headline--tiny"><a href="<?= the_permalink() ?>"><?= the_title() ?></a></h5>
-                  <p><?= ( has_excerpt() ) ? get_the_excerpt() : ( wp_trim_words( get_the_content(), 18 ) ) ?><a href="<?= the_permalink() ?>" class="nu gray">Learn more</a></p>
-                </div>
-              </div>
-            <?php
-              }
+        }
         wp_reset_postdata();
 
       ?>
