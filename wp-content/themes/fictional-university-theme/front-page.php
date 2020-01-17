@@ -40,9 +40,11 @@ get_header();
         ));
 
         while( $homePageEvents->have_posts() ){
+
           $homePageEvents->the_post();
           
-          get_template_part( 'template-parts/content', 'event');
+          //get_template_part( 'template-parts/content', 'event'); --> is the same as...
+          get_template_part( 'template-parts/content-event');
 
         }
         wp_reset_postdata();
