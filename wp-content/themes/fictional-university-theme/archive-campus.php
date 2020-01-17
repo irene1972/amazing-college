@@ -27,7 +27,10 @@
 
     ?>
     <!-- <li><a href="< ?= the_permalink() ?>">< ?= the_title() ?></a></li> -->
-    <div class="marker" data-lat="<?= $map_location['lat'] ?>" data-lng="<?= $map_location['lng'] ?>"></div>
+    <div class="marker" data-lat="<?= $map_location['lat'] ?>" data-lng="<?= $map_location['lng'] ?>">
+        <h3><a href="<?= the_permalink() ?>"><?= the_title() ?></a></h3>
+        <?php echo $map_location['address'] ?>
+    </div>
     <?php
 
       }?>
