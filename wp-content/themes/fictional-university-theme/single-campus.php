@@ -37,37 +37,33 @@ while( have_posts() ){
 
     <?php 
 
-      // Professor's relationship
-      $relatedProfessors = new WP_Query(array(
+      // Campuses relationship
+      $relatedPrograms = new WP_Query(array(
         'posts_per_page' => -1,
-        'post_type' => 'professor',
+        'post_type' => 'program',
         'orderby' => 'title',
         'order' => 'ASC',
         'meta_query' => array(
           array(
-            'key' => 'related_programs',
+            'key' => 'related_campus',
             'compare' => 'LIKE',
             'value' => get_the_ID()
           )
         ) 
       ));
 
-      if( $relatedProfessors->have_posts() ){
+      if( $relatedPrograms->have_posts() ){
 
         echo '<hr class="section-break">';
-        echo '<h2 class="headline headline--medium">' . get_the_title() . ' Professors</h2>';   
-        echo '<ul class="professor-cards">';  
+        echo '<h2 class="headline headline--medium">Programs Available At This Campus</h2>';   
+        echo '<ul class="min-list link-list">';  
 
-        while( $relatedProfessors->have_posts() ){
-          $relatedProfessors->the_post();
-          //the_post_thumbnail( 'medium' );
+        while( $relatedPrograms->have_posts() ){
+          $relatedPrograms->the_post();
 
           ?>
-            <li class="professor-card__list-item">
-              <a class="professor-card" href="<?= the_permalink() ?>">
-                <img class="professor-card__image"  src="<?= the_post_thumbnail_url('professorLandscape') ?>" alt="">
-                <span class="professor-card__name"><?= the_title() ?></span>
-              </a>
+            <li>
+              <a href="<?= the_permalink() ?>"><?= the_title() ?></a>
             </li>
           <?php
 
@@ -78,6 +74,7 @@ while( have_posts() ){
       }
 
       // Event's relationship
+      /*
       $today = date('Ymd');
 
       $relatedEvents = new WP_Query(array(
@@ -116,6 +113,7 @@ while( have_posts() ){
               
         wp_reset_postdata();
             }
+            */
 
       ?>
 
