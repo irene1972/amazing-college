@@ -130,4 +130,15 @@ function university_adjust_queries( $query ){
 // Ligeras modificaciones de las queries que wordpress nos aporta de forma predeterminada (por defecto)
 add_action( 'pre_get_posts', 'university_adjust_queries' );
 
+
+function universityMapKey( $api ){
+  
+  $api['key'] = 'AIzaSyDzVZbomMZcejnPvLjL_LFPpNXSO8g8MmU';
+  
+  return $api;
+
+}
+
+add_filter( 'acf/fields/google_map/api', 'universityMapKey' );
+
 ?>
