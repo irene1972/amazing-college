@@ -76,7 +76,7 @@ class Search{
   }
 
   keyPressDispacher( e ){
-    if( e.keyCode == 83 && !this.isOverlayOpen && $("input, textarea").is(":focus") ){
+    if( e.keyCode == 83 && !this.isOverlayOpen && !$("input, textarea").is(":focus") ){
       this.openOverlay();
     }
 
