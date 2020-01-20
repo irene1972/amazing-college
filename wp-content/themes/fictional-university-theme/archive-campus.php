@@ -10,8 +10,23 @@
 ?>
 
 <div class="container container--narrow page-section">
+  <ul class="link-list min-list">
+    <?php 
+
+      while( have_posts() ){
+        the_post();
+
+
+        ?>
+          <li><a href="<?= the_permalink() ?>"><?= the_title() ?></a></li>
+        <?php
+
+      }
+    
+    ?>
+    </ul>
+    
   <div class="acf-map">
-  <!-- <ul class="link-list min-list"> -->
     <?php 
 
       while( have_posts() ){
@@ -34,7 +49,6 @@
     <?php
 
       }?>
-  <!-- </ul> -->
   </div>
 
 </div>

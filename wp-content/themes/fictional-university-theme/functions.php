@@ -127,6 +127,12 @@ function university_adjust_queries( $query ){
 
   }
 
+  if( !is_admin() && is_post_type_archive('campus') && $query->is_main_query() ){
+
+    $query->set( 'posts_per_page', -1 );
+
+  }
+
 }
 
 // Ligeras modificaciones de las queries que wordpress nos aporta de forma predeterminada (por defecto)
