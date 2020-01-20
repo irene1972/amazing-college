@@ -63,22 +63,27 @@ class Search{
     //   alert(posts[0].title.rendered);
     // }.bind(this));
 
-    $.getJSON( universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val(), posts => {
-      $.getJSON( universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchField.val(), pages => {
+    // Para ejecuciones asíncronas: solo cuando se ejecuten todas las peticiones incluidas dentro del 'when' => se ejecutará el código indicado en el 'then'
+    $.when(
+      $.getJSON( universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val() ), 
+      $.getJSON( universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchField.val() )
+      ).then((posts, pages) => {
 
-        var combinedResults = posts.concat(pages);
+      var combinedResults = posts[0].concat(pages[0]);
 
-        this.resultsDiv.html(`
-        <h2 class="search-overlay__section-title">General Information</h2>
-        ${( combinedResults.length ) ? '<ul class="link-list min-list">' : '<p>No general information matches that search.</p>'}
-          ${combinedResults.map(item=>`<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
-        ${( combinedResults.length ) ? '</ul>' : ''}
-        `);
-  
-        this.isSpinnerVisible = false;
+      this.resultsDiv.html(`
+      <h2 class="search-overlay__section-title">General Information</h2>
+      ${( combinedResults.length ) ? '<ul class="link-list min-list">' : '<p>No general information matches that search.</p>'}
+        ${combinedResults.map(item=>`<li><a href="${item.link}">${item.title.rendered}</a></li>`).join('')}
+      ${( combinedResults.length ) ? '</ul>' : ''}
+      `);
 
-      });
+      this.isSpinnerVisible = false;
+
+    }, () => {
+      this.resultsDiv.html('<p>Unexpected error, please try again.</p>');
     });
+
   }
 
   keyPressDispacher( e ){
