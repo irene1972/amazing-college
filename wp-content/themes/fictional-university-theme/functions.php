@@ -1,5 +1,17 @@
 <?php
 
+function university_custom_rest(){
+
+  // Primer param: el POST-TYPE que queremos customizar. Segundo: nombre del campo. Tercero: array que describe como vamos a manejar este campo ('get_callback' indica que vamos a hacer una llamada a una función y obtener el resultado)
+  register_rest_field('post', 'authorName', array(
+    'get_callback' => function(){return get_the_author();}
+  ));
+
+}
+
+add_action( 'rest_api_init', 'university_custom_rest' );
+
+
 function pageBanner( $args = NULL ){
   
   $name_field_subtitle = 'page_banner_subtitle';
