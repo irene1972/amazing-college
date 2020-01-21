@@ -103,6 +103,16 @@ class Search{
             ${resp.programs.map(item=>`<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
           ${( resp.programs.length ) ? '</ul>' : ''}
           <h2 class="search-overlay__section-title">Professors</h2>
+          ${( resp.professors.length ) ? '<ul class="professor-cards">' : `<p>No professor match that search.</p>`}
+            ${resp.professors.map(item=>`
+              <li class="professor-card__list-item">
+                <a class="professor-card" href="${item.permalink}">
+                  <img class="professor-card__image"  src="${item.url_image}" alt="">
+                  <span class="professor-card__name">${item.title}</span>
+                </a>
+              </li>
+            `).join('')}
+          ${( resp.professors.length ) ? '</ul>' : ''}
         </div>
         <div class="one-third">
           <h2 class="search-overlay__section-title">Campuses</h2>
@@ -110,6 +120,19 @@ class Search{
             ${resp.campuses.map(item=>`<li><a href="${item.permalink}">${item.title}</a></li>`).join('')}
           ${( resp.campuses.length ) ? '</ul>' : ''}
           <h2 class="search-overlay__section-title">Events</h2>
+          ${( resp.events.length ) ? '' : `<p>No events match that search. <a href="${universityData.root_url}/events">View all events</a></p>`}
+            ${resp.events.map(item=>`
+              <div class="event-summary">
+                <a class="event-summary__date t-center" href="${item.permalink}">
+                  <span class="event-summary__month">${item.month_event}</span>
+                  <span class="event-summary__day">${item.day_event}</span>
+                </a>
+                <div class="event-summary__content">
+                  <h5 class="event-summary__title headline headline--tiny"><a href="${item.permalink}">${item.title}</a></h5>
+                  <p>${item.description}<a href="${item.permalink}" class="nu gray">Learn more</a></p>
+                </div>
+              </div>
+            `).join('')}
         </div>
       </div>
       `);

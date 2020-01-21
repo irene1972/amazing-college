@@ -43,6 +43,7 @@ function university_search_results( $data ){
         array_push($resuts['professors'], array(
           'title' => get_the_title(),
           'permalink' => get_the_permalink(),
+          'url_image' => get_the_post_thumbnail_url(0, 'professorLandscape')
         ));
         break;
       case 'program': 
@@ -51,10 +52,21 @@ function university_search_results( $data ){
           'permalink' => get_the_permalink(),
         ));
         break;
-      case 'event': 
+      case 'event':
+
+        $description = null;
+        $description = ( has_excerpt() ) ? get_the_excerpt() : ( wp_trim_words( get_the_content(), 18 ) );
+
+        $eventDate = new DateTime(get_field('event_date'));
+        $monthEvent = $eventDate->format('M');
+        $dayEvent = $eventDate->format('d');
+
         array_push($resuts['events'], array(
           'title' => get_the_title(),
           'permalink' => get_the_permalink(),
+          'month_event' => $monthEvent,
+          'day_event' => $dayEvent,
+          'description' => $description 
         ));
         break;
       case 'campus': 
@@ -67,15 +79,6 @@ function university_search_results( $data ){
         //break;
 
     }
-/*
-    if( get_post_type() == 'post' || get_post_type() == 'page' ){
-      array_push($resuts['general_info'], array(
-        'title' => get_the_title(),
-        'permalink' => get_the_permalink(),
-      ));
-    }
-*/
-
 
   }
 
