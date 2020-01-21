@@ -1,8 +1,6 @@
 <?php
 
-function university_search_results(){
-  return 'Congratulations, you created a route';
-}
+add_action('rest_api_init', 'university_register_search');
 
 function university_register_search(){
   // Primer aurgumento: name space que queremos usar. Segundo: nombre de la ruta a la que vamos a acceder. Tercero: .
@@ -12,4 +10,27 @@ function university_register_search(){
   ));
 }
 
-add_action('rest_api_init', 'university_register_search');
+function university_search_results( $data ){
+
+  $professors = new WP_Query(array(
+    'post_type' => 'professor',
+    's' => sanitize_text_field($data['term'])
+  ));
+
+  $professor_resuts = array();
+  
+  while( $professors->have_posts() ){
+    
+    $professors->the_post();
+
+    array_push($professor_resuts, array(
+      'title' => get_the_title(),
+      'permalink' => get_the_permalink(),
+    ));
+
+  }
+
+  //return $professors->posts;  ---> funciona, pero queremos una respuesta personalizada...
+  return $professor_resuts;
+
+}
