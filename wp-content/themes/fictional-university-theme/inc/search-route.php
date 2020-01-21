@@ -12,25 +12,72 @@ function university_register_search(){
 
 function university_search_results( $data ){
 
-  $professors = new WP_Query(array(
-    'post_type' => 'professor',
+  $mainQuery = new WP_Query(array(
+    'post_type' => array('post', 'page', 'professor', 'program', 'event', 'campus'),
     's' => sanitize_text_field($data['term'])
   ));
 
-  $professor_resuts = array();
+  $resuts = array(
+    'general_info' => array(),
+    'professors' => array(),
+    'programs' => array(),
+    'events' => array(),
+    'campuses' => array()
+  );
   
-  while( $professors->have_posts() ){
+  while( $mainQuery->have_posts() ){
     
-    $professors->the_post();
+    $mainQuery->the_post();
 
-    array_push($professor_resuts, array(
-      'title' => get_the_title(),
-      'permalink' => get_the_permalink(),
-    ));
+    switch( get_post_type() ){
+      case 'post':  //---> este código equivale un un post_type de tipo 'post' OR 'page' 
+      case 'page': 
+        array_push($resuts['general_info'], array(
+          'title' => get_the_title(),
+          'permalink' => get_the_permalink(),
+        ));
+        break;
+      case 'professor': 
+        array_push($resuts['professors'], array(
+          'title' => get_the_title(),
+          'permalink' => get_the_permalink(),
+        ));
+        break;
+      case 'program': 
+        array_push($resuts['programs'], array(
+          'title' => get_the_title(),
+          'permalink' => get_the_permalink(),
+        ));
+        break;
+      case 'event': 
+        array_push($resuts['events'], array(
+          'title' => get_the_title(),
+          'permalink' => get_the_permalink(),
+        ));
+        break;
+      case 'campus': 
+        array_push($resuts['campuses'], array(
+          'title' => get_the_title(),
+          'permalink' => get_the_permalink(),
+        ));
+        //break;
+      default:
+        //break;
+
+    }
+/*
+    if( get_post_type() == 'post' || get_post_type() == 'page' ){
+      array_push($resuts['general_info'], array(
+        'title' => get_the_title(),
+        'permalink' => get_the_permalink(),
+      ));
+    }
+*/
+
 
   }
 
   //return $professors->posts;  ---> funciona, pero queremos una respuesta personalizada...
-  return $professor_resuts;
+  return $resuts;
 
 }
