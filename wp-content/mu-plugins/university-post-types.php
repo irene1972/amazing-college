@@ -35,6 +35,7 @@ function university_post_types(){
 
     // Professors post type
     register_post_type('professor', array(
+      'show_in_rest' => true,
       'supports' => array( 'title', 'editor', 'thumbnail'),
       //'rewrite' => array( 'slug' => 'professors' ), ---> porque no hay archivo.php asociado
       //'has_archive' => true,                        ---> porque no hay listado de Todos los Profesores como tal
