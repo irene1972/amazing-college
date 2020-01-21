@@ -88,6 +88,7 @@ class Search{
           */
 
     // Hemos camibado la consulta genérica a la api rest de wp (comentado más abajo) por una consulta customizada a la misma api rest
+    // http://localhost:3000/amazing-college/app/wp-json/university/v1/search?term=biology
     $.getJSON(universityData.root_url + '/wp-json/university/v1/search?term=' + this.searchField.val(), ( resp )=>{
       this.resultsDiv.html(`
       <div class="row">

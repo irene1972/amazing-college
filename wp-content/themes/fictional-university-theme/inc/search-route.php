@@ -4,6 +4,7 @@ add_action('rest_api_init', 'university_register_search');
 
 function university_register_search(){
   // Primer aurgumento: name space que queremos usar. Segundo: nombre de la ruta a la que vamos a acceder. Tercero: .
+  // http://localhost:3000/amazing-college/app/wp-json/university/v1/search?term=biology
   register_rest_route('university/v1', 'search', array(
     'methods' => WP_REST_SERVER::READABLE,  // ---> equivalente a 'GET'
     'callback' => 'university_search_results'
@@ -81,6 +82,33 @@ function university_search_results( $data ){
     }
 
   }
+
+  $programRelationshipQuery = new WP_Query(array(
+    'post_type' => 'professor',
+    'meta_query' => array(
+      array(
+        'key' => 'related_programs',
+        'compare' => 'LIKE',
+        'value' => '56'
+      )
+    )
+  ));
+
+  while( $programRelationshipQuery->have_posts() ){
+    $programRelationshipQuery->the_post();
+
+    if( get_post_type() == 'professor' ){
+      array_push($resuts['professors'], array(
+        'title' => get_the_title(),
+        'permalink' => get_the_permalink(),
+        'url_image' => get_the_post_thumbnail_url(0, 'professorLandscape'))
+      );
+    }
+
+  }
+
+  // Eliminamos duplicados cuando la busqueda muestra resultados tanto para la consulta principal como para la consulta relacional
+  $resuts['professors'] = array_values(array_unique( $resuts['professors'], SORT_REGULAR ));
 
   //return $professors->posts;  ---> funciona, pero queremos una respuesta personalizada...
   return $resuts;
