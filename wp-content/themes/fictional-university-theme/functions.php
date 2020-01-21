@@ -1,5 +1,7 @@
 <?php
 
+require_once get_theme_file_path('/inc/search-route.php');
+
 function university_custom_rest(){
 
   // Primer param: el POST-TYPE que queremos customizar. Segundo: nombre del campo. Tercero: array que describe como vamos a manejar este campo ('get_callback' indica que vamos a hacer una llamada a una función y obtener el resultado)
