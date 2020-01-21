@@ -32,6 +32,13 @@ function university_search_results( $data ){
 
     switch( get_post_type() ){
       case 'post':  //---> este código equivale un un post_type de tipo 'post' OR 'page' 
+        array_push($resuts['general_info'], array(
+          'title' => get_the_title(),
+          'permalink' => get_the_permalink(),
+          'post_type' => get_post_type(),
+          'author_name' => get_the_author()
+        ));
+        break;
       case 'page': 
         array_push($resuts['general_info'], array(
           'title' => get_the_title(),
@@ -51,6 +58,7 @@ function university_search_results( $data ){
         array_push($resuts['programs'], array(
           'title' => get_the_title(),
           'permalink' => get_the_permalink(),
+          'id' => get_the_ID()
         ));
         break;
       case 'event':
@@ -83,32 +91,40 @@ function university_search_results( $data ){
 
   }
 
-  $programRelationshipQuery = new WP_Query(array(
-    'post_type' => 'professor',
-    'meta_query' => array(
-      array(
+  if( $resuts['programs'] ){
+
+    $programsMetaQuery = array('relation' => 'OR');
+
+    foreach( $resuts['programs'] as $item){
+      array_push( $programsMetaQuery, array(
         'key' => 'related_programs',
         'compare' => 'LIKE',
-        'value' => '56'
-      )
-    )
-  ));
-
-  while( $programRelationshipQuery->have_posts() ){
-    $programRelationshipQuery->the_post();
-
-    if( get_post_type() == 'professor' ){
-      array_push($resuts['professors'], array(
-        'title' => get_the_title(),
-        'permalink' => get_the_permalink(),
-        'url_image' => get_the_post_thumbnail_url(0, 'professorLandscape'))
-      );
+        'value' => '"' . $item['id'] . '"' 
+      ));
     }
-
+  
+    $programRelationshipQuery = new WP_Query(array(
+      'post_type' => 'professor',
+      'meta_query' => $programsMetaQuery
+    ));
+  
+    while( $programRelationshipQuery->have_posts() ){
+      $programRelationshipQuery->the_post();
+  
+      if( get_post_type() == 'professor' ){
+        array_push($resuts['professors'], array(
+          'title' => get_the_title(),
+          'permalink' => get_the_permalink(),
+          'url_image' => get_the_post_thumbnail_url(0, 'professorLandscape'))
+        );
+      }
+  
+    }
+  
+    // Eliminamos duplicados cuando la busqueda muestra resultados tanto para la consulta principal como para la consulta relacional
+    $resuts['professors'] = array_values(array_unique( $resuts['professors'], SORT_REGULAR ));
+  
   }
-
-  // Eliminamos duplicados cuando la busqueda muestra resultados tanto para la consulta principal como para la consulta relacional
-  $resuts['professors'] = array_values(array_unique( $resuts['professors'], SORT_REGULAR ));
 
   //return $professors->posts;  ---> funciona, pero queremos una respuesta personalizada...
   return $resuts;
