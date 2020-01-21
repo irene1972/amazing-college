@@ -35,6 +35,8 @@ function university_search_results( $data ){
         array_push($resuts['general_info'], array(
           'title' => get_the_title(),
           'permalink' => get_the_permalink(),
+          'post_type' => get_post_type(),
+          'author_name' => get_the_author()
         ));
         break;
       case 'professor': 
