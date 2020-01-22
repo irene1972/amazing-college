@@ -3,7 +3,9 @@
 function university_post_types(){
   // Event post type
   register_post_type('event', array(
-    'supports' => array( 'title', 'editor', 'excerpt'), //Si usamos el plugin ACF no necesitamos añadir en esta línea 'custom-fields'
+    'capability_type' => 'event',   // RELACIONADO CON LOS ROLES. Si no indicamos nada sobre capability_type, por defecto tiene el tipo 'post'
+    'map_meta_cap' => true,   // RELACIONADO CON LOS ROLES. 
+    'supports' => array( 'title', 'editor', 'excerpt'), // Si usamos el plugin ACF no necesitamos añadir en esta línea 'custom-fields'
     'rewrite' => array( 'slug' => 'events' ),
     'has_archive' => true,
     'public' => true,
