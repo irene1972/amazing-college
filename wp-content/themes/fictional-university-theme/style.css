@@ -2367,3 +2367,7 @@
     border-bottom: none;
     margin-bottom: 0;
   }
+
+  .search-space-top{
+    margin-top: 5em;
+  }
