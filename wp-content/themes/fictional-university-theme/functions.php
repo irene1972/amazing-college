@@ -168,4 +168,31 @@ function universityMapKey( $api ){
 
 add_filter( 'acf/fields/google_map/api', 'universityMapKey' );
 
+// Redirect suscriber accounts out of admin and onto homepage
+function redirect_subs_to_frontend(){
+
+  $our_current_user = wp_get_current_user();
+
+  // Si el usuario tiene sólo 1 rol y ese rol es SUSCRIPTOR
+  if( count($our_current_user->roles) && $our_current_user->roles[0] == 'subscriber' ){
+    wp_redirect(site_url('/'));
+    exit;
+  }
+}
+
+add_action( 'admin_init', 'redirect_subs_to_frontend' );
+
+// Hide de admin bar when the current user is a suscriber 
+function no_subs_admin_bar(){
+
+  $our_current_user = wp_get_current_user();
+
+  // Si el usuario tiene sólo 1 rol y ese rol es SUSCRIPTOR
+  if( count($our_current_user->roles) && $our_current_user->roles[0] == 'subscriber' ){
+    show_admin_bar(false);
+  }
+}
+
+add_action( 'wp_loaded', 'no_subs_admin_bar' );
+
 ?>
