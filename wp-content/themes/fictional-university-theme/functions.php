@@ -57,9 +57,13 @@ function university_files(){
   wp_enqueue_style('font-awesome', '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
   wp_enqueue_style('university_main_styles', get_stylesheet_uri(), NULL, microtime());
 
-  // Primer param: nick del script al que hacemos referencia. Segundo el nick de esta función. Tercero
+  // Primer param: nick del script al que hacemos referencia. Segundo el nombre que damos al objeto que va a contener las propiedades del... Tercer parámetro: propiedades que le pasamos al script para poder usarlas desde js.
   wp_localize_script('main-university-js', 'universityData', array(
-    'root_url' => get_site_url()
+    'root_url' => get_site_url(),         // Nos permite acceder de forma dinámica al site home de wp (lo tenemos accesible en el js cargado en el front en un objeto llamado universityData)
+    'nonce' => wp_create_nonce('wp_rest') // Cada vez que nos loguemos exitosamente en wp, tendremos acceso a una propiedad nonce (dentro del objeto universityData) 
+                                          // que habrá generado wp con la función 'wp_create_nonce("wp_rest")' justo para nuestra sesión de usuario.
+                                          // Esto se lo pasamos al ajax en el atributo beforeSend para que nos permita hacer la acción de ELIMINAR desde
+                                          // la API de WP.
   )); 
 
 }

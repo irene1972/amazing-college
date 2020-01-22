@@ -20,6 +20,23 @@ class MyNotes{
 
   deleteNote(){
     alert('Eliminamos!!');
+    $.ajax({
+      //http://localhost:3000/amazing-college/app/wp-json/wp/v2/note
+      //http://localhost:3000/amazing-college/app/wp-json/wp/v2/note/95
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader( 'X-WP-Nonce', universityData.nonce );
+      },
+      url: universityData.root_url + '/wp-json/wp/v2/note/95',
+      type: 'DELETE',
+      success: ( response ) => {
+        console.log('Congratulations');
+        console.log( response );
+      },
+      error: ( response ) => {
+        console.log('Sorry');
+        console.log( response );
+      }
+    });
   }
   
 }
