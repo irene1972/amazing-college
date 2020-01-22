@@ -182,7 +182,7 @@ function redirect_subs_to_frontend(){
 
 add_action( 'admin_init', 'redirect_subs_to_frontend' );
 
-// Hide de admin bar when the current user is a suscriber 
+// Hidden the admin bar when the current user is a suscriber 
 function no_subs_admin_bar(){
 
   $our_current_user = wp_get_current_user();
@@ -194,5 +194,28 @@ function no_subs_admin_bar(){
 }
 
 add_action( 'wp_loaded', 'no_subs_admin_bar' );
+
+// Customize Login Screen (the url of the wordpress logo)
+function our_header_url(){
+  return esc_url(site_url('/'));
+}
+
+add_filter( 'login_headerurl', 'our_header_url' );
+
+// Customize Login Screen (the title of the wordpress logo)
+function our_login_title(){
+  return get_bloginfo('name');
+}
+
+add_filter( 'login_headertitle', 'our_login_title' );
+
+// Cargar custom css en el login de la aplicación
+function our_login_css(){
+  wp_enqueue_style('custom-google-fonts', '//fonts.googleapis.com/css?family=Roboto+Condensed:300,300i,400,400i,700,700i|Roboto:100,300,400,400i,700,700i');
+  wp_enqueue_style('university_main_styles', get_stylesheet_uri());
+}
+
+add_action( 'login_enqueue_scripts', 'our_login_css' );
+
 
 ?>
