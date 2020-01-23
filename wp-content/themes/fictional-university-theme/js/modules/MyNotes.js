@@ -6,6 +6,7 @@ class MyNotes{
     this.editButton = $(".edit-note");
     this.deleteButton = $(".delete-note");
     this.buttonSave = $(".update-note");
+    this.buttonCrete = $(".submit-note")
     this.events();
   }
 
@@ -13,6 +14,7 @@ class MyNotes{
     this.editButton.on( "click", this.editNote.bind(this) );
     this.deleteButton.on( "click", this.deleteNote );
     this.buttonSave.on( "click", this.updateNote.bind(this) );
+    this.buttonCrete.on( "click" , this.createNote );
   }
 
   editNote( event ){
@@ -93,6 +95,41 @@ class MyNotes{
         console.log( response );
       }
     });
+  }
+
+  createNote(){
+    //var elemDivNewNote = $(event.target).parents("div");
+    var inputTitle = $(".new-note-title");
+    var textareaContent = $(".new-note-body");
+
+    var ourNewPost = {
+      'title': inputTitle.val(),
+      'content': textareaContent.val(),
+      'status': 'publish'   //by dafault is 'draft' the status
+    }
+
+    // Si no incluimos el STATUS -> PUBLISHED crearíamos un borrador.
+    $.ajax({
+      beforeSend: (xhr) => {
+        xhr.setRequestHeader( 'X-WP-Nonce', universityData.nonce );
+      },
+      url: universityData.root_url + '/wp-json/wp/v2/note/',
+      type: 'POST',
+      data: ourNewPost,
+      success: ( response ) => {
+        //$(".new-note-title, .new-note-body").val('');
+        inputTitle.val('');
+        textareaContent.val('');
+        $('<li>Imagine real data here</li>').prependTo("#my-notes").hide().slideDown();   // Con la finalidad de que no aparezca de golpe el elemento, primero lo escondemos ('hide') y luego hacemos el 'slideDown'
+        console.log('The note has been created');
+        console.log( response );
+      },
+      error: ( response ) => {
+        console.log('Sorry, there was an error');
+        console.log( response );
+      }
+    });
+
   }
 
 }
