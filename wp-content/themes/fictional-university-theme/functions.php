@@ -5,8 +5,13 @@ require_once get_theme_file_path('/inc/search-route.php');
 function university_custom_rest(){
 
   // Primer param: el POST-TYPE que queremos customizar. Segundo: nombre del campo. Tercero: array que describe como vamos a manejar este campo ('get_callback' indica que vamos a hacer una llamada a una función y obtener el resultado)
+  // En la response a la petición aparecerán estas custom propierties que pedimos expresamente
   register_rest_field('post', 'authorName', array(
     'get_callback' => function(){return get_the_author();}
+  ));
+
+  register_rest_field('note', 'userNoteCount', array(
+    'get_callback' => function(){return count_user_posts( get_current_user_id(), 'note' );}
   ));
 
 }
