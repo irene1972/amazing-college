@@ -3,7 +3,7 @@
 function university_post_types(){
   // Event post type
   register_post_type('event', array(
-    'capability_type' => 'event',   // RELACIONADO CON LOS ROLES. Si no indicamos nada sobre capability_type, por defecto tiene el tipo 'post'
+    'capability_type' => 'event',   // RELACIONADO CON LOS ROLES. Si no indicamos nada sobre capability_type, por defecto tiene el tipo 'post'. Event es el nick que le ponemos a la capability
     'map_meta_cap' => true,   // RELACIONADO CON LOS ROLES. 
     'supports' => array( 'title', 'editor', 'excerpt'), // Si usamos el plugin ACF no necesitamos añadir en esta línea 'custom-fields'
     'rewrite' => array( 'slug' => 'events' ),
@@ -70,6 +70,8 @@ function university_post_types(){
 
         // Note post type
         register_post_type('note', array(
+          'capability_type' => 'note',
+          'map_meta_cap' => true,
           'show_in_rest' => true,
           'supports' => array( 'title', 'editor'),
           'public' => false,  // Important! in this case we want Notes not to be public
