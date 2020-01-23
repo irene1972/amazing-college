@@ -38,7 +38,7 @@ while( have_posts() ){
 
           ?>
             <li data-id="<?= the_ID() ?>">
-              <input value="<?= esc_attr(get_the_title()) ?>" class="note-title-field" readonly />
+              <input value="<?= str_replace('Private: ', '', esc_attr(get_the_title())) ?>" class="note-title-field" readonly />
               <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</span>
               <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</span>
               <textarea class="note-body-field" readonly ><?= esc_attr(get_the_content()) ?></textarea>
