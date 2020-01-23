@@ -3,18 +3,28 @@ import $ from 'jquery';
 class MyNotes{
 
   constructor(){
-    this.editButton = $(".edit-note");
-    this.deleteButton = $(".delete-note");
-    this.buttonSave = $(".update-note");
-    this.buttonCrete = $(".submit-note")
+    // Ver nota (*)
+    //this.editButton = $(".edit-note");
+    //this.deleteButton = $(".delete-note");
+    //this.buttonSave = $(".update-note");
+    this.elemUL = $("#my-notes");
+    this.buttonCreate = $(".submit-note")
     this.events();
   }
 
   events(){
-    this.editButton.on( "click", this.editNote.bind(this) );
-    this.deleteButton.on( "click", this.deleteNote );
-    this.buttonSave.on( "click", this.updateNote.bind(this) );
-    this.buttonCrete.on( "click" , this.createNote );
+    this.elemUL.on( "click", ".edit-note", this.editNote.bind(this) );
+    this.elemUL.on( "click", ".delete-note", this.deleteNote );
+    this.elemUL.on( "click", ".update-note", this.updateNote.bind(this) );
+    this.buttonCreate.on( "click" , this.createNote );
+
+    // (*) Hemos modificado toda esta parte para que al crear un elemento nuevo y mostrarlo dinámicamente tras la creación. En el nuevo elemento funcionen los eventos igual que en los anteriores ... 
+    //      ... resumiendo el cambio: ahora el onClick está sobre el elemento UL que contendrá siempre los elementos pasados y creados nuevamente (sin posterior recarga de página), sin embargo...
+    //      ... el evento sigue correspondiendo al elemento (span edit o span delete) de la misma manera que ya habíamos configurado
+    // this.editButton.on( "click", this.editNote.bind(this) );
+    // this.deleteButton.on( "click", this.deleteNote );
+    // this.buttonSave.on( "click", this.updateNote.bind(this) );
+    // this.buttonCreate.on( "click" , this.createNote );
   }
 
   editNote( event ){
@@ -120,7 +130,15 @@ class MyNotes{
         //$(".new-note-title, .new-note-body").val('');
         inputTitle.val('');
         textareaContent.val('');
-        $('<li>Imagine real data here</li>').prependTo("#my-notes").hide().slideDown();   // Con la finalidad de que no aparezca de golpe el elemento, primero lo escondemos ('hide') y luego hacemos el 'slideDown'
+        $(`
+        <li data-id="${response.id}">
+          <input value="${response.title.raw}" class="note-title-field" readonly />
+          <span class="edit-note"><i class="fa fa-pencil" aria-hidden="true"></i>Edit</span>
+          <span class="delete-note"><i class="fa fa-trash-o" aria-hidden="true"></i>Delete</span>
+          <textarea class="note-body-field" readonly >${response.content.raw}</textarea>
+          <span class="update-note btn btn--blue btn--small"><i class="fa fa-arrow-right" aria-hidden="true"></i>Update</span>
+        </li>
+        `).prependTo("#my-notes").hide().slideDown();   // Con la finalidad de que no aparezca de golpe el elemento, primero lo escondemos ('hide') y luego hacemos el 'slideDown'
         console.log('The note has been created');
         console.log( response );
       },
