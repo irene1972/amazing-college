@@ -222,4 +222,16 @@ function our_login_css(){
 add_action( 'login_enqueue_scripts', 'our_login_css' );
 
 
+// Force note posts to be private
+function makeNotePrivate ( $data ){
+
+  if( $data['post_type'] == 'note' && $data['post_status'] != 'trash' )
+     $data['post_status'] = 'private';
+ 
+  return $data;
+
+}
+
+add_filter( 'wp_insert_post_data', 'makeNotePrivate' );
+
 ?>

@@ -115,7 +115,7 @@ class MyNotes{
     var ourNewPost = {
       'title': inputTitle.val(),
       'content': textareaContent.val(),
-      'status': 'publish'   //by dafault is 'draft' the status
+      'status': 'publish'   // by dafault is 'draft' the status. IMPORTANTE! Lo dejamos en publish (aunque debería ser private) pq vamos a proteger este punto desde php
     }
 
     // Si no incluimos el STATUS -> PUBLISHED crearíamos un borrador.
