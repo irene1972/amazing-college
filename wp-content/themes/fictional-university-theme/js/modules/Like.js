@@ -28,11 +28,39 @@ class Like{
     }
 
     createLike(){
-      alert('created');
+      
+      $.ajax({
+        url: universityData.root_url + '/wp-json/university/v1/manageLike',
+        type: 'POST',
+        success: ( response ) => {
+          console.log('The like has been created');
+          console.log( response );
+        },
+        error: ( response ) => {
+          console.log('Sorry, there was an error');
+          console.log( response );
+
+        }
+      });
+
     }
 
     deleteLike(){
-      alert('deleted');
+
+      $.ajax({
+        url: universityData.root_url + '/wp-json/university/v1/manageLike',
+        type: 'DELETE',
+        success: ( response ) => {
+          console.log('The like has been deleted');
+          console.log( response );
+        },
+        error: ( response ) => {
+          console.log('Sorry, there was an error');
+          console.log( response );
+  
+        }
+      });
+      
     }
 
 }

@@ -3,7 +3,7 @@
 add_action('rest_api_init', 'university_register_search');
 
 function university_register_search(){
-  // Primer aurgumento: name space que queremos usar. Segundo: nombre de la ruta a la que vamos a acceder. Tercero: .
+  // Primer aurgumento: name space que queremos usar. Segundo: nombre de la ruta a la que vamos a acceder. Tercero: métodos y callbacks en una array.
   // http://localhost:3000/amazing-college/app/wp-json/university/v1/search?term=biology
   register_rest_route('university/v1', 'search', array(
     'methods' => WP_REST_SERVER::READABLE,  // ---> equivalente a 'GET'
