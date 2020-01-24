@@ -17,21 +17,24 @@ class Like{
       var elemSpanBox = $(e.target).parents("span");
 
       if( elemSpanBox.data("exists") == "yes" ){
-        this.deleteLike();
+        this.deleteLike( elemSpanBox );
         //elemSpanBox.data("exists", "no");
       }
       else{
-        this.createLike()
+        this.createLike( elemSpanBox )
         //elemSpanBox.data("exists", "yes");
       }
       
     }
 
-    createLike(){
-      
+    createLike( elemSpanBox ){
+
+      var professorId = elemSpanBox.data("professor");
+
       $.ajax({
         url: universityData.root_url + '/wp-json/university/v1/manageLike',
         type: 'POST',
+        data: { 'professorId' : professorId },
         success: ( response ) => {
           console.log('The like has been created');
           console.log( response );
