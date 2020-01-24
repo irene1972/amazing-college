@@ -68,23 +68,39 @@ function university_post_types(){
       'menu_icon' => 'dashicons-location-alt'
     ));
 
-        // Note post type
-        register_post_type('note', array(
-          'capability_type' => 'note',
-          'map_meta_cap' => true,
-          'show_in_rest' => true,
-          'supports' => array( 'title', 'editor'),
-          'public' => false,  // Important! in this case we want Notes not to be public
-          'show_ui' => true,  // Show in the admin dashboard ui (cause the previous attribute)
-          'labels' => array(
-            'name' => 'Notes',
-            'add_new_item' => 'Add New Note',
-            'edit_item' => 'Edit Note',
-            'all_items' => 'All Notes',
-            'singular_name' => 'Note'
-          ),
-          'menu_icon' => 'dashicons-welcome-write-blog'
-        ));
+    // Note post type
+    register_post_type('note', array(
+      'capability_type' => 'note',
+      'map_meta_cap' => true,
+      'show_in_rest' => true,
+      'supports' => array( 'title', 'editor'),
+      'public' => false,  // Important! in this case we want Notes not to be public
+      'show_ui' => true,  // Show in the admin dashboard ui (cause the previous attribute)
+      'labels' => array(
+        'name' => 'Notes',
+        'add_new_item' => 'Add New Note',
+        'edit_item' => 'Edit Note',
+        'all_items' => 'All Notes',
+        'singular_name' => 'Note'
+      ),
+      'menu_icon' => 'dashicons-welcome-write-blog'
+    ));
+
+    // Like post type
+    //'show_in_rest' => false,   ---> because this post type requires a customized logic. No usaremos los end point integrados de la rest api. Crearemos ends points propios y customizaremos el manejo de permisos
+    register_post_type('like', array(
+      'supports' => array( 'title'),
+      'public' => false,
+      'show_ui' => true,
+      'labels' => array(
+        'name' => 'Likes',
+        'add_new_item' => 'Add New Like',
+        'edit_item' => 'Edit Like',
+        'all_items' => 'All Likes',
+        'singular_name' => 'Like'
+      ),
+      'menu_icon' => 'dashicons-heart'
+    ));
 
 }
 
